@@ -7,6 +7,12 @@ ICM20948::ICM20948()
     gpio_init(IMU_CS_PIN);
     gpio_set_dir(IMU_CS_PIN, GPIO_OUT);
     gpio_put(IMU_CS_PIN, 1); // Set CS high initially
+
+    // SPI0 interface initialization
+    spi_init(SPI_PORT, 1000000); // Initialize spi0 at 1MHz
+    gpio_set_function(MISO, GPIO_FUNC_SPI);
+    gpio_set_function(SCLK, GPIO_FUNC_SPI);
+    gpio_set_function(MOSI, GPIO_FUNC_SPI);
 }
 
 // Read WHO_AM_I register

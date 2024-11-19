@@ -5,7 +5,6 @@
 #include <iomanip>
 #include <string>
 #include "pico/stdlib.h"
-#include "gpio_init.hpp"  // Converted gpio_init library
 #include "icm_20948.hpp"  // Converted ICM-20948 library
 #include "buzzer.hpp"     // Converted buzzer library
 
@@ -17,10 +16,13 @@ int main() {
     sleep_ms(1000);
 
     // Initialize SPI, GPIO, IMU
-    GPIO::initSPI();  // Using gpio_init namespace for SPI
-    sleep_ms(1000);
+    static constexpr uint DATA_LED = 25;
+    static constexpr uint BUZZER = 12;
+    gpio_init(DATA_LED);
+    gpio_set_dir(DATA_LED, GPIO_OUT);
+    gpio_init(BUZZER);
+    gpio_set_dir(BUZZER, GPIO_OUT);
 
-    GPIO::initGPIO(); // Using gpio_init namespace for GPIO
     sleep_ms(1000);
 
     IMU.reset(); // Using icm_20948 namespace for IMU reset
@@ -36,7 +38,7 @@ int main() {
 
     // Main loop
     while (true) {
-        gpio_put(GPIO::DATA_LED, 1); // Turn on data LED using gpio_init
+        gpio_put(DATA_LED, 1); // Turn on data LED using gpio_init
 
         ICM20948::MotionData IMU_data = IMU.readMotionData(); // Reading IMU data from icm_20948 namespace
 
@@ -54,7 +56,7 @@ int main() {
 
         sleep_ms(500); // Wait 500ms
 
-        gpio_put(GPIO::DATA_LED, 0); // Turn off data LED using gpio_init
+        gpio_put(DATA_LED, 0); // Turn off data LED using gpio_init
         sleep_ms(500); // Wait 500ms
     }
 

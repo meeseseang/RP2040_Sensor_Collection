@@ -123,6 +123,11 @@ public:
     // Configuration settings
     spi_inst_t* SPI_PORT = spi0;
     static constexpr uint8_t IMU_CS_PIN = 17;
+    static constexpr uint8_t MISO = 16;   // Master In Slave Out
+    static constexpr uint8_t MOSI = 19;   // Master Out Slave In
+    static constexpr uint8_t SCLK = 18;   // SPI Clock
+    static constexpr uint8_t CS_IMU = 17; // Chip select for IMU
+
 
     // Conversions for accelerometer MSB and LSB configuration registers
     static constexpr uint8_t ACCEL_SAMPLE_RATE_MSB = ((ACCEL_SAMPLE_RATE & 0xF0) >> 4); // Get most significant byte of sample rate

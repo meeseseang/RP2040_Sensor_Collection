@@ -28,7 +28,6 @@ include_directories(${PROJECT_NAME}
 add_executable(${PROJECT_NAME}
     src/main.cpp
     src/icm_20948.cpp
-    src/gpio_init.cpp
     src/buzzer.cpp
 )
 
