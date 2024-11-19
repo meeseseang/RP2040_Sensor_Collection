@@ -1,5 +1,4 @@
 // RP2040 IMU and Pressure data logger written by Sean Meese
-// Converted to C++17 by [Your Name]
 // Started on 08-01-24
 
 #include <iostream>
@@ -12,7 +11,7 @@
 
 int main() {
     stdio_init_all(); // Initialize the I/O for serial communication
-
+    ICM20948 IMU;
     // Initialization
     std::cout << "Beginning initialization..." << std::endl;
     sleep_ms(1000);
@@ -24,10 +23,10 @@ int main() {
     GPIO::initGPIO(); // Using gpio_init namespace for GPIO
     sleep_ms(1000);
 
-    ICM20948::reset(); // Using icm_20948 namespace for IMU reset
+    IMU.reset(); // Using icm_20948 namespace for IMU reset
     sleep_ms(1000);
 
-    ICM20948::whoAmI(); // Using icm_20948 namespace for IMU identification
+    IMU.whoAmI(); // Using icm_20948 namespace for IMU identification
     sleep_ms(1000);
 
     std::cout << "Board initialization complete..." << std::endl;
@@ -39,7 +38,7 @@ int main() {
     while (true) {
         gpio_put(GPIO::DATA_LED, 1); // Turn on data LED using gpio_init
 
-        ICM20948::readMotionData(IMU_data); // Reading IMU data from icm_20948 namespace
+        ICM20948::MotionData IMU_data = IMU.readMotionData(); // Reading IMU data from icm_20948 namespace
 
         // Print IMU data
         std::cout << std::fixed << std::setprecision(2);
