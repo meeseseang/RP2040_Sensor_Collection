@@ -121,7 +121,7 @@ public:
     static constexpr uint8_t BIAS_SAMPLES      = 100;       // Set the # of samples for bias removal
 
     // Configuration settings
-    static constexpr spi_inst_t* SPI_PORT = spi0;
+    spi_inst_t* SPI_PORT = spi0;
     static constexpr uint8_t IMU_CS_PIN = 17;
 
     // Conversions for accelerometer MSB and LSB configuration registers

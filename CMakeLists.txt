@@ -19,13 +19,18 @@ pico_sdk_init()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_NAME}/bin)
 
 # Include directories
-include_directories(${PROJECT_NAME}/include)
+include_directories(${PROJECT_NAME}
+    ./include/
+    )
 
-# Add all .cpp files from the src directory
-file(GLOB_RECURSE SRC_FILES ${PROJECT_NAME}/src/*.cpp)
 
 # Add the executable target
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    src/icm_20948.cpp
+    src/gpio_init.cpp
+    src/buzzer.cpp
+)
 
 # Create map/bin/hex/uf2 files
 pico_add_extra_outputs(${PROJECT_NAME})
