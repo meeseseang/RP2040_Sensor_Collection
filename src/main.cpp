@@ -10,12 +10,10 @@
 
 int main() {
     stdio_init_all(); // Initialize the I/O for serial communication
-    ICM20948 IMU;
-    // Initialization
-    std::cout << "Beginning initialization..." << std::endl;
-    sleep_ms(1000);
 
-    // Initialize SPI, GPIO, IMU
+    std::cout << "Beginning initialization..." << std::endl;
+
+    // DATA_LED and Buzzer pin initialization
     static constexpr uint DATA_LED = 25;
     static constexpr uint BUZZER = 12;
     gpio_init(DATA_LED);
@@ -23,13 +21,25 @@ int main() {
     gpio_init(BUZZER);
     gpio_set_dir(BUZZER, GPIO_OUT);
 
-    sleep_ms(1000);
+    // SPI initialization
+    spi_set_format( spi0,   // SPI instance
+                    8,      //Number of bits per transfer
+                    1,      // Polarity (CPOL)
+                    1,      // Phase (CPHA)
+                    SPI_MSB_FIRST);
+    ICM20948 IMU;
+
+    sleep_ms(500);
 
     IMU.reset(); // Using icm_20948 namespace for IMU reset
-    sleep_ms(1000);
+    sleep_ms(500);
 
-    IMU.whoAmI(); // Using icm_20948 namespace for IMU identification
-    sleep_ms(1000);
+    // Check the device ID and if it doesn't work create an error
+    if (IMU.whoAmI() != 0xEA) {
+        std::cout << "Device ID is incorrect!" << std::endl;
+        while(true);
+    }
+    sleep_ms(500);
 
     std::cout << "Board initialization complete..." << std::endl;
 
