@@ -35,6 +35,7 @@ int main() {
     sleep_ms(500);
 
     std::cout << "Board initialization complete..." << std::endl;
+    sleep_ms(2000);
 
     // IMU data structure
     ICM20948::MotionData IMU_data;
@@ -55,12 +56,9 @@ int main() {
                   << ", Z: " << IMU_data.z_gyro << "]\n";
         std::cout << "Magnetometer: [X: " << IMU_data.x_mag
                   << ", Y: " << IMU_data.y_mag
-                  << ", Z: " << IMU_data.z_mag << "]" << std::endl;
+                  << ", Z: " << IMU_data.z_mag << "]\n\n\n" << std::endl;
 
-        sleep_ms(500); // Wait 500ms
-
-        gpio_put(DATA_LED, 0); // Turn off data LED using gpio_init
-        sleep_ms(500); // Wait 500ms
+        sleep_ms(200);
     }
 
     return 0;

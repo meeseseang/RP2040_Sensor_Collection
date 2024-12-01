@@ -54,6 +54,7 @@ void ICM20948::selectBank(UserBank bank)
 void ICM20948::writeRegister(UserBank bank, uint8_t reg, uint8_t value)
 {
     selectBank(bank);
+    sleep_ms(10);
     gpio_put(IMU_CS_PIN, 0);
     spi_write_blocking(SPI_PORT, &reg, 1);
     spi_write_blocking(SPI_PORT, &value, 1);
@@ -66,6 +67,7 @@ uint8_t ICM20948::readRegister(UserBank bank, uint8_t reg)
     uint8_t temp_reg = reg | 0x80;
     uint8_t data;
     selectBank(bank);
+    sleep_ms(10);
     gpio_put(IMU_CS_PIN, 0);
     spi_write_blocking(SPI_PORT, &temp_reg, 1);
     spi_read_blocking(SPI_PORT, 0, &data, 1);
@@ -214,6 +216,7 @@ void ICM20948::reset()
 
     // Remove gyro bias
     removeGyroBias();
+    sleep_ms(50);
 
     // Gyro sample rate divider = 0 (pg.59)
     writeRegister(UserBank::Bank2, GYRO_SMPLRT_DIV, GYRO_SAMPLE_RATE);
@@ -223,7 +226,7 @@ void ICM20948::reset()
 
     // Alert completion of gyro calibration
     Buzzer::long_beep();
-    sleep_ms(500);
+    sleep_ms(2000);
 
     // Alert the beginning of magnetometer calibration
     Buzzer::long_beep();
@@ -237,6 +240,7 @@ void ICM20948::reset()
     // Alert completion of initialization
     Buzzer::long_beep();
     selectBank(UserBank::Bank0);
+    sleep_ms(500);
 }
 
 // Read motion data

@@ -118,11 +118,11 @@ public:
     static constexpr uint8_t ACCEL_SAMPLE_RATE = 0x00;      // Set the accelerometer sample rate
 
     static constexpr uint8_t ODR               = 0x03;      // Set the output data rate through I2C (init_magnetometer func)
-    static constexpr uint8_t BIAS_SAMPLES      = 100;       // Set the # of samples for bias removal
+    static constexpr auto BIAS_SAMPLES         = 100;       // Set the # of samples for bias removal
 
     // Convert bias sample rates
-    static constexpr uint8_t BIAS_RATE          = (4 * BIAS_SAMPLES);
-    static constexpr uint8_t MAG_BIAS_SAMPLES   = (10 * BIAS_SAMPLES);
+    static constexpr auto BIAS_RATE          = (4 * BIAS_SAMPLES);
+    static constexpr auto MAG_BIAS_SAMPLES   = (10 * BIAS_SAMPLES);
 
     // Configuration settings
     spi_inst_t* SPI_PORT = spi0;
@@ -203,9 +203,7 @@ public:
     void calibrateMagnetometer();
 
 private:
-    // Helper functions for SPI communication
-    void spiWrite(uint8_t reg, uint8_t data);
-    uint8_t spiRead(uint8_t reg);
+    // Helper functions 
 };
 
 #endif // ICM_20948_HPP
