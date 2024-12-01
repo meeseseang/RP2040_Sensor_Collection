@@ -120,6 +120,10 @@ public:
     static constexpr uint8_t ODR               = 0x03;      // Set the output data rate through I2C (init_magnetometer func)
     static constexpr uint8_t BIAS_SAMPLES      = 100;       // Set the # of samples for bias removal
 
+    // Convert bias sample rates
+    static constexpr uint8_t BIAS_RATE          = (4 * BIAS_SAMPLES);
+    static constexpr uint8_t MAG_BIAS_SAMPLES   = (10 * BIAS_SAMPLES);
+
     // Configuration settings
     spi_inst_t* SPI_PORT = spi0;
     static constexpr uint8_t IMU_CS_PIN = 17;

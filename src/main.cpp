@@ -15,18 +15,11 @@ int main() {
 
     // DATA_LED and Buzzer pin initialization
     static constexpr uint DATA_LED = 25;
-    static constexpr uint BUZZER = 12;
     gpio_init(DATA_LED);
     gpio_set_dir(DATA_LED, GPIO_OUT);
-    gpio_init(BUZZER);
-    gpio_set_dir(BUZZER, GPIO_OUT);
+    Buzzer::initialize();
 
     // SPI initialization
-    spi_set_format( spi0,   // SPI instance
-                    8,      //Number of bits per transfer
-                    1,      // Polarity (CPOL)
-                    1,      // Phase (CPHA)
-                    SPI_MSB_FIRST);
     ICM20948 IMU;
 
     sleep_ms(500);
