@@ -5,12 +5,8 @@ cmake_minimum_required(VERSION 3.16)
 include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 
 
-# Project name and version
-project(RP2040_Flight_Computer_CPP VERSION 1.0)
-
-# Specify the C++ standard
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+# Project name
+project(RP2040_FC LANGUAGES C CXX ASM)
 
 # Creates a pico-sdk subdirectory in the project for the librarcmies
 pico_sdk_init()
@@ -29,6 +25,8 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/icm_20948.cpp
     src/buzzer.cpp
+    src/dps_310.cpp
+    src/microsd.cpp
 )
 
 # Create map/bin/hex/uf2 files
