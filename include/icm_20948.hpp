@@ -124,15 +124,6 @@ public:
     static constexpr auto BIAS_RATE          = (4 * BIAS_SAMPLES);
     static constexpr auto MAG_BIAS_SAMPLES   = (10 * BIAS_SAMPLES);
 
-    // Configuration settings
-    spi_inst_t* SPI_PORT = spi0;
-    static constexpr uint8_t IMU_CS_PIN = 17;
-    static constexpr uint8_t MISO = 16;   // Master In Slave Out
-    static constexpr uint8_t MOSI = 19;   // Master Out Slave In
-    static constexpr uint8_t SCLK = 18;   // SPI Clock
-    static constexpr uint8_t CS_IMU = 17; // Chip select for IMU
-
-
     // Conversions for accelerometer MSB and LSB configuration registers
     static constexpr uint8_t ACCEL_SAMPLE_RATE_MSB = ((ACCEL_SAMPLE_RATE & 0xF0) >> 4); // Get most significant byte of sample rate
     static constexpr uint8_t ACCEL_SAMPLE_RATE_LSB = (ACCEL_SAMPLE_RATE & 0x0F);        // Get least significant byte of sample rate
@@ -152,9 +143,6 @@ public:
         int16_t z_mag;
     };
 
-    /**
-     * @brief Accelerometer range configuration.
-     */
     enum class AccelRange {
         G_2,
         G_4,
@@ -162,9 +150,6 @@ public:
         G_16
     };
 
-    /**
-     * @brief Gyroscope range configuration.
-     */
     enum class GyroRange {
         DPS_250,
         DPS_500,
@@ -172,9 +157,6 @@ public:
         DPS_2000
     };
 
-    /**
-     * @brief User bank selection.
-     */
     enum class UserBank {
         Bank0 = 0,
         Bank1 = 1 << 4,
@@ -183,7 +165,7 @@ public:
     };
 
     // Constructor
-    ICM20948();
+    ICM20948(int CS, int MISO, int MOSI, int SCLK, spi_inst_t* SPI);
 
     // Basic control functions
     void reset();
@@ -203,7 +185,8 @@ public:
     void calibrateMagnetometer();
 
 private:
-    // Helper functions 
+    int IMU_CS_PIN;
+    spi_inst_t* SPI_PORT;
 };
 
 #endif // ICM_20948_HPP

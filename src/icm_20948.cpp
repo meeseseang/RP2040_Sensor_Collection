@@ -31,10 +31,6 @@ uint8_t ICM20948::whoAmI()
     spi_write_blocking(SPI_PORT, &reg, 1);
     spi_read_blocking(SPI_PORT, 0, &data, 1);
     gpio_put(IMU_CS_PIN, 1);
-
-    // Use std::cout for output
-    std::cout << "WHO_AM_I register: 0x" << std::hex << std::uppercase 
-              << static_cast<int>(data) << std::dec << std::endl;
     return data;
 }
 
@@ -72,10 +68,6 @@ uint8_t ICM20948::readRegister(UserBank bank, uint8_t reg)
     spi_write_blocking(SPI_PORT, &temp_reg, 1);
     spi_read_blocking(SPI_PORT, 0, &data, 1);
     gpio_put(IMU_CS_PIN, 1);
-
-    // Use std::cout for output
-    std::cout << "Read 0x" << std::hex << std::uppercase << static_cast<int>(data) 
-              << " from register 0x" << static_cast<int>(reg) << std::dec << std::endl;
     return data;
 }
 
