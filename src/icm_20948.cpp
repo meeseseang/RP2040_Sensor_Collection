@@ -2,7 +2,7 @@
 #include "buzzer.hpp"
 
 // Constructor
-ICM20948::ICM20948(int CS, int MISO, int MOSI, int SCLK, spi_inst_t* SPI)
+ICM20948::ICM20948(int CS, spi_inst_t* SPI)
 {
     IMU_CS_PIN = CS;
     SPI_PORT = SPI;
@@ -11,18 +11,6 @@ ICM20948::ICM20948(int CS, int MISO, int MOSI, int SCLK, spi_inst_t* SPI)
     gpio_init(IMU_CS_PIN);
     gpio_set_dir(IMU_CS_PIN, GPIO_OUT);
     gpio_put(IMU_CS_PIN, 1); // Set CS high initially
-
-    // SPI0 interface initialization
-    spi_init(SPI_PORT, 1000000);
-    gpio_set_function(MISO, GPIO_FUNC_SPI);
-    gpio_set_function(SCLK, GPIO_FUNC_SPI);
-    gpio_set_function(MOSI, GPIO_FUNC_SPI);
-
-    spi_set_format( SPI_PORT,   // SPI instance
-                    8,      //Number of bits per transfer
-                    SPI_CPOL_1,      // Polarity (CPOL)
-                    SPI_CPHA_1,      // Phase (CPHA)
-                    SPI_MSB_FIRST);
 }
 
 // Read WHO_AM_I register

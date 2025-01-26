@@ -165,7 +165,7 @@ public:
     };
 
     // Constructor
-    ICM20948(int CS, int MISO, int MOSI, int SCLK, spi_inst_t* SPI);
+    ICM20948(int CS, spi_inst_t* SPI);
 
     // Basic control functions
     void reset();

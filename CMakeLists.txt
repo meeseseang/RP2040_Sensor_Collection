@@ -26,7 +26,6 @@ add_executable(${PROJECT_NAME}
     src/icm_20948.cpp
     src/buzzer.cpp
     src/dps_310.cpp
-    src/microsd.cpp
 )
 
 # Create map/bin/hex/uf2 files
